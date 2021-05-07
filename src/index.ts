@@ -9,11 +9,11 @@
  * @param {string|number} excelDate
  * @param {nodeCallback} [done]
  */
-export function exceldate(excelDate: string | number,
-	done = (err: Error, res?: Date) =>
+export function exceldate<T = Date>(excelDate: string | number,
+	done = (err: Error, res?: Date): T =>
 	{
 		if (err) throw err
-		return res
+		return res as any
 	},
 )
 {

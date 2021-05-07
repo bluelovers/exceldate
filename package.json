@@ -2,11 +2,23 @@
   "name": "exceldate2",
   "version": "1.1.0",
   "description": "Node.js module to convert excel timestamps to JS dates.",
+  "homepage": "https://github.com/bluelovers/exceldate#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/exceldate/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/exceldate.git"
+  },
   "license": "Unlicense",
   "author": "Floyd Noel",
   "main": "dist/index.js",
   "module": "dist/exceldate2.esm.js",
+  "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
+  "directories": {
+    "test": "test"
+  },
   "files": [
     "dist",
     "src"
@@ -15,8 +27,22 @@
     "start": "tsdx watch",
     "test": "tsdx test",
     "build": "tsdx build",
-    "prepare": "tsdx build"
+    "npm:publish": "npm publish",
+    "npm:publish:lerna": "lerna publish --yes --bump patch",
+    "preversion": "echo preversion",
+    "prepare": "tsdx build",
+    "prepublishOnly_": "yarn run prepublishOnly:check-bin && yarn run prepublishOnly:update && yarn run test",
+    "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
+    "prepublishOnly:update": "yarn run ncu && yarn run sort-package-json",
+    "postpublish_": "yarn run postpublish:changelog && yarn run postpublish:git:commit && yarn run postpublish:git:tag && yarn run postpublish:git:push",
+    "postpublish:changelog": "ynpx --quiet @yarn-tool/changelog && git add ./CHANGELOG.md",
+    "postpublish:git:commit": "git commit -m \"chore(release): publish\" . & echo postpublish:git:commit",
+    "postpublish:git:push": "git push --follow-tags",
+    "postpublish:git:tag": "ynpx --quiet @yarn-tool/tag",
+    "ncu": "yarn-tool ncu -u",
+    "sort-package-json": "yarn-tool sort"
   },
+  "dependencies": {},
   "devDependencies": {
     "@bluelovers/tsconfig": "^1.0.20",
     "jest": "^25.3.0",
