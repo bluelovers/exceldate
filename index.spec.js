@@ -1,5 +1,5 @@
 const assert = require('assert')
-const exceldate = require('./src')
+const exceldate = require('./').exceldate
 
 describe('exceldate', () => {
   it('should return the correct date', () => {

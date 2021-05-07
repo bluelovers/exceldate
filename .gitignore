@@ -133,4 +133,4 @@ jest.config.js.map
 !npm-shrinkwrap.json
 *.stat
 .vercel
-
+!dist/*.map

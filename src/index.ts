@@ -1,19 +1,9 @@
-/**
- * @callback nodeCallback
- * @param {Error} [err]
- * @param {Date} [res]
- */
 
-/**
- * Takes an Excel timestamp (as a number or string) and returns a corresponding Date object
- * @param {string|number} excelDate
- * @param {nodeCallback} [done]
- */
-export function exceldate<T = Date>(excelDate: string | number,
-	done = (err: Error, res?: Date): T =>
+export function exceldateTs<T = number>(excelDate: string | number,
+	done = (err: Error, unixTs?: number): T =>
 	{
 		if (err) throw err
-		return res as any
+		return unixTs as any
 	},
 )
 {
@@ -41,14 +31,44 @@ export function exceldate<T = Date>(excelDate: string | number,
 		const excelDelta = excelEpochTs - missingLeapYearDay
 		const excelTs = excelDateNumber * secondsInDay * 1000
 		const unixTs = excelTs + excelDelta
-		const jsDate = new Date(unixTs)
 
-		return done(null, jsDate)
+		return done(null, unixTs)
 	}
 	catch (e)
 	{
 		return done(e)
 	}
+}
+
+/**
+ * Takes an Excel timestamp (as a number or string) and returns a corresponding Date object
+ */
+export function exceldate<T = Date>(excelDate: string | number,
+	done = (err: Error, res?: Date): T =>
+	{
+		if (err) throw err
+		return res as any
+	},
+)
+{
+	return exceldateTs(excelDate, (err: Error, unixTs?: number) => {
+		if (err)
+		{
+			return done(err)
+		}
+		else
+		{
+			try
+			{
+				const jsDate = new Date(unixTs)
+				return done(null, jsDate)
+			}
+			catch (e)
+			{
+				return done(e)
+			}
+		}
+	})
 }
 
 export default exceldate
