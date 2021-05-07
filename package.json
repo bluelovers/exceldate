@@ -1,6 +1,6 @@
 {
   "name": "exceldate2",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Node.js module to convert excel timestamps to JS dates.",
   "homepage": "https://github.com/bluelovers/exceldate#readme",
   "bugs": {
@@ -31,10 +31,11 @@
     "npm:publish:lerna": "lerna publish --yes --bump patch",
     "preversion": "echo preversion",
     "prepare": "tsdx build",
+    "prepublishOnly": "tsdx build && tsdx test",
     "prepublishOnly_": "yarn run prepublishOnly:check-bin && yarn run prepublishOnly:update && yarn run test",
     "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
     "prepublishOnly:update": "yarn run ncu && yarn run sort-package-json",
-    "postpublish": "yarn run postpublish:changelog && yarn run postpublish:git:commit && yarn run postpublish:git:tag && yarn run postpublish:git:push",
+    "postpublish_": "yarn run postpublish:changelog && yarn run postpublish:git:commit && yarn run postpublish:git:tag && yarn run postpublish:git:push",
     "postpublish:changelog": "ynpx --quiet @yarn-tool/changelog && git add ./CHANGELOG.md",
     "postpublish:git:commit": "git commit -m \"chore(release): publish\" . & echo postpublish:git:commit",
     "postpublish:git:push": "git push --follow-tags",
