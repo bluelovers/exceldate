@@ -1,27 +1,28 @@
 {
-  "name": "exceldate",
-  "description": "Node.js module to convert excel timestamps to JS dates.",
-  "author": "Floyd Noel",
-  "license": "Unlicense",
-  "main": "index",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/floydnoel/exceldate"
-  },
+  "name": "exceldate2",
   "version": "1.1.0",
+  "description": "Node.js module to convert excel timestamps to JS dates.",
+  "license": "Unlicense",
+  "author": "Floyd Noel",
+  "main": "dist/index.js",
+  "module": "dist/exceldate2.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "test": "jest",
-    "lint": "eslint . --fix",
-    "format": "prettier . --write"
+    "start": "tsdx watch",
+    "test": "tsdx test",
+    "build": "tsdx build",
+    "prepare": "tsdx build"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "14.1.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-prettier": "^3.1.3",
+    "@bluelovers/tsconfig": "^1.0.20",
     "jest": "^25.3.0",
-    "prettier": "^2.0.4"
+    "tsdx": "^0.14.1"
+  },
+  "engines": {
+    "node": ">=10"
   }
 }

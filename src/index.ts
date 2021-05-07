@@ -9,37 +9,46 @@
  * @param {string|number} excelDate
  * @param {nodeCallback} [done]
  */
-module.exports = (
-  excelDate,
-  done = (err, res) => {
-    if (err) throw err
-    return res
-  }
-) => {
-  if (!excelDate) {
-    return done(new Error('No first argument provided, nothing to convert.'))
-  }
-  try {
-    // Convert input to a number
-    const excelDateNumber = Number.parseFloat(excelDate, 10)
-    if (Number.isNaN(excelDateNumber)) {
-      return done(new Error('First argument could not be parsed.'))
-    }
+export function exceldate(excelDate: string | number,
+	done = (err: Error, res?: Date) =>
+	{
+		if (err) throw err
+		return res
+	},
+)
+{
+	if (!excelDate)
+	{
+		return done(new Error('No first argument provided, nothing to convert.'))
+	}
+	try
+	{
+		// Convert input to a number
+		// @ts-ignore
+		const excelDateNumber = Number.parseFloat(excelDate, 10)
+		if (Number.isNaN(excelDateNumber))
+		{
+			return done(new Error('First argument could not be parsed.'))
+		}
 
-    // Convert input to JS Date
-    // Details here (mostly in comments): https://gist.github.com/christopherscott/2782634
-    const secondsInDay = 24 * 60 * 60
-    const excelEpoch = new Date(Date.UTC(1899, 11, 31))
-    const excelEpochTs = excelEpoch.getTime()
-    const missingLeapYearDay = secondsInDay * 1000
+		// Convert input to JS Date
+		// Details here (mostly in comments): https://gist.github.com/christopherscott/2782634
+		const secondsInDay = 24 * 60 * 60
+		const excelEpoch = new Date(Date.UTC(1899, 11, 31))
+		const excelEpochTs = excelEpoch.getTime()
+		const missingLeapYearDay = secondsInDay * 1000
 
-    const excelDelta = excelEpochTs - missingLeapYearDay
-    const excelTs = excelDateNumber * secondsInDay * 1000
-    const unixTs = excelTs + excelDelta
-    const jsDate = new Date(unixTs)
+		const excelDelta = excelEpochTs - missingLeapYearDay
+		const excelTs = excelDateNumber * secondsInDay * 1000
+		const unixTs = excelTs + excelDelta
+		const jsDate = new Date(unixTs)
 
-    return done(null, jsDate)
-  } catch (e) {
-    return done(e)
-  }
+		return done(null, jsDate)
+	}
+	catch (e)
+	{
+		return done(e)
+	}
 }
+
+export default exceldate
