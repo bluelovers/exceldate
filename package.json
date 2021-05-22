@@ -1,6 +1,6 @@
 {
   "name": "exceldate2",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "Node.js module to convert excel timestamps to JS dates.",
   "homepage": "https://github.com/bluelovers/exceldate#readme",
   "bugs": {
