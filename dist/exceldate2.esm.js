@@ -1,3 +1,53 @@
+var secondsInDay = 24 * 60 * 60;
+var millisecondsInDay = secondsInDay * 1000;
+var missingLeapYearDay = millisecondsInDay;
+function getExcelEpoch() {
+  var excelEpoch = new Date(Date.UTC(1899, 11, 31));
+  return excelEpoch;
+}
+function getExcelDelta() {
+  var excelEpochTs = getExcelEpoch().getTime();
+  var excelDelta = excelEpochTs - missingLeapYearDay;
+  return excelDelta;
+}
+function validDateNumber(excelDateNumber) {
+  return !(typeof excelDateNumber !== 'number' || !Number.isFinite(excelDateNumber) || Number.isNaN(excelDateNumber) || excelDateNumber <= 0);
+}
+function excelDateNumber(excelDate) {
+  // @ts-ignore
+  var value = Number.parseFloat(excelDate, 10);
+
+  if (validDateNumber(value)) {
+    return value;
+  }
+}
+/**
+ * Convert input to a number
+ */
+
+function excelDateNumberToTs(excelDate) {
+  var value = excelDateNumber(excelDate);
+
+  if (typeof value === 'number') {
+    //const excelDateSeconds = value * secondsInDay;
+    var excelDateMilliseconds = value * millisecondsInDay;
+    return excelDateMilliseconds;
+  }
+}
+function ts2excel(milliseconds) {
+  var excelDelta = getExcelDelta();
+  return milliseconds - excelDelta;
+}
+function date2excel(date) {
+  return ts2excel(date.getTime());
+}
+/**
+ * Convert input to JS Date
+ * Details here (mostly in comments): https://gist.github.com/christopherscott/2782634
+ *
+ * @link https://gist.github.com/christopherscott/2782634
+ */
+
 function exceldateTs(excelDate, done) {
   if (done === void 0) {
     done = function done(err, unixTs) {
@@ -11,22 +61,13 @@ function exceldateTs(excelDate, done) {
   }
 
   try {
-    // Convert input to a number
-    // @ts-ignore
-    var excelDateNumber = Number.parseFloat(excelDate, 10);
+    var excelTs = excelDateNumberToTs(excelDate);
 
-    if (Number.isNaN(excelDateNumber)) {
+    if (typeof excelTs !== 'number') {
       return done(new Error('First argument could not be parsed.'));
-    } // Convert input to JS Date
-    // Details here (mostly in comments): https://gist.github.com/christopherscott/2782634
+    }
 
-
-    var secondsInDay = 24 * 60 * 60;
-    var excelEpoch = new Date(Date.UTC(1899, 11, 31));
-    var excelEpochTs = excelEpoch.getTime();
-    var missingLeapYearDay = secondsInDay * 1000;
-    var excelDelta = excelEpochTs - missingLeapYearDay;
-    var excelTs = excelDateNumber * secondsInDay * 1000;
+    var excelDelta = getExcelDelta();
     var unixTs = excelTs + excelDelta;
     return done(null, unixTs);
   } catch (e) {
@@ -60,5 +101,5 @@ function exceldate(excelDate, done) {
 }
 
 export default exceldate;
-export { exceldate, exceldateTs };
+export { date2excel, excelDateNumber, excelDateNumberToTs, exceldate, exceldateTs, getExcelDelta, getExcelEpoch, ts2excel, validDateNumber };
 //# sourceMappingURL=exceldate2.esm.js.map
