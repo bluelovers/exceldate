@@ -64,7 +64,7 @@
     "postversion": "echo postversion",
     "prepublish": "echo prepublish",
     "prepare": "echo prepare",
-    "prepublishOnly": "tsdx build && tsdx test",
+    "prepublishOnly": "yarn run test",
     "prepublishOnly_": "yarn run prepublishOnly:check-bin && yarn run prepublishOnly:update && yarn run test",
     "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
     "prepublishOnly:update": "yarn run ncu && yarn run sort-package-json",
