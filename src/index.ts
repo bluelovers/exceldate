@@ -98,7 +98,7 @@ export function exceldateTs<T = number>(excelDate: IExcelDateNumberInput,
 
 		return done(null, unixTs)
 	}
-	catch (e)
+	catch (e: any)
 	{
 		return done(e)
 	}
@@ -115,7 +115,8 @@ export function exceldate<T = Date>(excelDate: IExcelDateNumberInput,
 	},
 )
 {
-	return exceldateTs(excelDate, (err: Error, unixTs?: number) => {
+	return exceldateTs(excelDate, (err: Error, unixTs?: number) =>
+	{
 		if (err)
 		{
 			return done(err)
@@ -127,7 +128,7 @@ export function exceldate<T = Date>(excelDate: IExcelDateNumberInput,
 				const jsDate = new Date(unixTs)
 				return done(null, jsDate)
 			}
-			catch (e)
+			catch (e: any)
 			{
 				return done(e)
 			}

@@ -2,6 +2,13 @@
   "name": "exceldate2",
   "version": "1.1.5",
   "description": "Node.js module to convert excel timestamps to JS dates.",
+  "keywords": [
+    "excel",
+    "date",
+    "xlsx",
+    "create-by-yarn-tool",
+    "create-by-tsdx"
+  ],
   "homepage": "https://github.com/bluelovers/exceldate#readme",
   "bugs": {
     "url": "https://github.com/bluelovers/exceldate/issues"
@@ -12,8 +19,19 @@
   },
   "license": "Unlicense",
   "author": "Floyd Noel",
-  "main": "dist/index.js",
-  "module": "dist/exceldate2.esm.js",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json",
+    "./src/*": "./src/*"
+  },
+  "main": "dist/index.cjs",
+  "unpkg": "dist/index.umd.production.min.cjs",
+  "module": "dist/index.esm.mjs",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
   "directories": {
@@ -25,32 +43,52 @@
   ],
   "scripts": {
     "start": "tsdx watch",
-    "test": "tsdx test",
-    "build": "tsdx build",
+    "pretest": "echo pretest",
+    "test": "jest test --passWithNoTests",
+    "test:jest:clearCache": "jest --clearCache",
+    "posttest": "yarn run build",
+    "build": "yarn run build:tsdx && yarn run build:dts:bundle",
+    "build:dts:bundle": "ynpx dts-bundle-generator -o ./dist/index.d.ts ./src/index.ts --no-banner --inline-declare-global & echo build:dts:bundle",
+    "build:dts:copy": "copy .\\src\\index.d.ts .\\dist\\index.d.ts & echo build:dts",
+    "build:dts:tsc": "yarn run build:dts:tsc:emit && yarn run build:dts:copy",
+    "build:dts:tsc:emit": "tsc --emitDeclarationOnly --declaration --noEmit false",
+    "build:tsdx": "ynpx @bluelovers/tsdx build --target node --name index",
+    "ci:install": "yarn install --frozen-lockfile && yarn add -W typescript@next jest ts-jest ts-node ynpx lerna yarn-tool",
+    "ci:build": "echo ci:build",
     "npm:publish": "yarn run version:bump && npm publish",
+    "npm:publish:bump": "yarn run version:bump && npm publish",
     "npm:publish:lerna": "lerna publish --yes --bump patch",
     "preversion": "echo preversion",
+    "version": "echo version",
     "version:bump": "yt version",
-    "prepare": "tsdx build",
+    "postversion": "echo postversion",
+    "prepublish": "echo prepublish",
+    "prepare": "echo prepare",
     "prepublishOnly": "tsdx build && tsdx test",
     "prepublishOnly_": "yarn run prepublishOnly:check-bin && yarn run prepublishOnly:update && yarn run test",
     "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
     "prepublishOnly:update": "yarn run ncu && yarn run sort-package-json",
+    "prepack": "echo prepack",
+    "pack": "echo pack",
+    "postpack": "echo postpack",
+    "publish": "echo publish",
     "postpublish": "yarn run postpublish:changelog && yarn run postpublish:git:commit && yarn run postpublish:git:tag && yarn run postpublish:git:push",
     "postpublish:changelog": "ynpx --quiet @yarn-tool/changelog && git add ./CHANGELOG.md",
     "postpublish:git:commit": "git commit -m \"chore(release): publish\" . & echo postpublish:git:commit",
     "postpublish:git:push": "git push --follow-tags",
     "postpublish:git:tag": "ynpx --quiet @yarn-tool/tag",
+    "postpublishOnly": "echo postpublishOnly",
     "ncu": "yarn-tool ncu -u",
-    "sort-package-json": "yarn-tool sort"
+    "sort-package-json": "yarn-tool sort",
+    "tsc:showConfig": "ynpx get-current-tsconfig -p"
   },
   "dependencies": {},
   "devDependencies": {
-    "@bluelovers/tsconfig": "^1.0.20",
-    "@types/jest": "^26.0.23",
-    "jest": "^26.6.3",
-    "tsdx": "^0.14.1"
+    "@bluelovers/tsconfig": "^1.0.30",
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.0"
   },
+  "packageManager": "yarn@^1.22.11",
   "engines": {
     "node": ">=10"
   }

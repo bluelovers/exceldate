@@ -21,3 +21,5 @@ export declare function exceldateTs<T = number>(excelDate: IExcelDateNumberInput
  */
 export declare function exceldate<T = Date>(excelDate: IExcelDateNumberInput, done?: (err: Error, res?: Date) => T): T;
 export default exceldate;
+
+export {};

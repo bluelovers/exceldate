@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import exceldate from '.';
+import exceldate from './src/index';
 
 describe('exceldate', () =>
 {
