@@ -1,6 +1,6 @@
 {
   "name": "exceldate2",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Node.js module to convert excel timestamps to JS dates.",
   "keywords": [
     "excel",
@@ -52,7 +52,7 @@
     "build:dts:copy": "copy .\\src\\index.d.ts .\\dist\\index.d.ts & echo build:dts",
     "build:dts:tsc": "yarn run build:dts:tsc:emit && yarn run build:dts:copy",
     "build:dts:tsc:emit": "tsc --emitDeclarationOnly --declaration --noEmit false",
-    "build:tsdx": "ynpx @bluelovers/tsdx build --target node --name index",
+    "build:tsdx": "ynpx @bluelovers/tsdx build --target node",
     "ci:install": "yarn install --frozen-lockfile && yarn add -W typescript@next jest ts-jest ts-node ynpx lerna yarn-tool",
     "ci:build": "echo ci:build",
     "npm:publish": "yarn run version:bump && npm publish",
