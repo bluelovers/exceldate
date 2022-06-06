@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.6](https://github.com/bluelovers/exceldate/compare/exceldate2@1.1.4...exceldate2@1.1.6) (2022-06-06)
+
+
+### 🛠　Build System
+
+* use `@bluelovers/tsdx` ([8792dce](https://github.com/bluelovers/exceldate/commit/8792dce473695565de07dafe169a7d73a63d406f))
+
+
+### ♻️　Chores
+
+* **release:** publish ([023e42d](https://github.com/bluelovers/exceldate/commit/023e42d11768f91e2e2659deb5a3e44f753a6891))
+
+
+### 🔖　Miscellaneous
+
+* . ([608b080](https://github.com/bluelovers/exceldate/commit/608b0803213b63b0ce17ce21d8b6c78b4e225f37))
+
+
+
+
+
 ## 1.1.4 (2021-05-22)
 
 
