@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.8](https://github.com/bluelovers/exceldate/compare/exceldate2@1.1.7...exceldate2@1.1.8) (2022-06-06)
+
+
+### 🔖　Miscellaneous
+
+* . ([8969380](https://github.com/bluelovers/exceldate/commit/89693807642937a5e72a40f35746341f7b40b0d1))
+
+
+
+
+
 ## [1.1.7](https://github.com/bluelovers/exceldate/compare/exceldate2@1.1.6...exceldate2@1.1.7) (2022-06-06)
 
 
